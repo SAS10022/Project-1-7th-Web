@@ -1,0 +1,53 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Entity Framework
+[Mm]igrations/
+*.db
+*.db-shm
+*.db-wal
+
+# Local database files
+.localdb/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# User-specific files
+.env
+.env.local
+appsettings.Development.json
+
+# Output of the go coverage tool
+*.out
