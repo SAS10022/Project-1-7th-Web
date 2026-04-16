@@ -37,7 +37,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configure Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite("Data Source=coursemanagement.db"));
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -91,16 +91,24 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Apply migrations and seed data
-using (var scope = app.Services.CreateScope())
+try
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate();
-    
-    // Seed sample data in development
-    if (app.Environment.IsDevelopment())
+    using (var scope = app.Services.CreateScope())
     {
-        DatabaseSeeder.Seed(dbContext);
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        // Create database if it doesn't exist
+        dbContext.Database.EnsureCreated();
+        
+        // Seed sample data in development
+        if (app.Environment.IsDevelopment())
+        {
+            DatabaseSeeder.Seed(dbContext);
+        }
     }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Database initialization error: {ex.Message}");
 }
 
 app.Run();

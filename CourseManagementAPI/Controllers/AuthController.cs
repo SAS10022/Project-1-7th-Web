@@ -38,6 +38,11 @@ public class AuthController : ControllerBase
         if (result == null)
             return Unauthorized("Invalid credentials");
 
+        // Add token to response header
+        Response.Headers["X-Access-Token"] = result.Token;
+        
+        // Remove token from response body
+        result.Token = string.Empty;
         return Ok(result);
     }
 }
